@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>¡Español! – 4ème</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:    #FF4757;
+  --yellow: #FFD32A;
+  --green:  #2ED573;
+  --blue:   #1E90FF;
+  --orange: #FF6B35;
+  --purple: #A55EEA;
+  --pink:   #FF6B9D;
+  --teal:   #26de81;
+  --bg:     #0f0f1a;
+  --card:   #1a1a2e;
+  --card2:  #16213e;
+  --text:   #f0f0ff;
+  --muted:  rgba(240,240,255,0.55);
+  --radius: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ── SCREENS ── */
+.screen { display: none; flex-direction: column; height: 100%; overflow-y: auto; }
+.screen.active { display: flex; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+/* ════════════════════════════════
+   HOME SCREEN
+════════════════════════════════ */
+#home {
+  background: linear-gradient(160deg, #0f0f1a 0%, #1a0a2e 100%);
+  padding: 0 0 80px;
+}
+
+.home-hero {
+  text-align: center;
+  padding: 2.5rem 1.5rem 1.5rem;
+  position: relative;
+}
+.hero-emoji {
+  font-size: 4rem;
+  display: block;
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.hero-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: 2.8rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--yellow), var(--red), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+  margin: 0.3rem 0;
+}
+.hero-sub {
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.section-label {
+  font-family: 'Baloo 2', cursive;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.chapter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.chapter-card {
+  border-radius: var(--radius);
+  padding: 1.1rem 1.3rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s, box-shadow 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: none;
+  text-align: left;
+  width: 100%;
+}
+.chapter-card:active { transform: scale(0.97); }
+.chapter-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  background: white;
+  border-radius: inherit;
+}
+
+.chapter-card.ar   { background: linear-gradient(135deg, #FF4757, #FF6B35); box-shadow: 0 8px 24px rgba(255,71,87,0.35); }
+.chapter-card.er   { background: linear-gradient(135deg, #1E90FF, #A55EEA); box-shadow: 0 8px 24px rgba(30,144,255,0.3); }
+.chapter-card.ir   { background: linear-gradient(135deg, #2ED573, #26de81); box-shadow: 0 8px 24px rgba(46,213,115,0.3); }
+.chapter-card.ser  { background: linear-gradient(135deg, #FFD32A, #FF6B35); box-shadow: 0 8px 24px rgba(255,211,42,0.3); }
+.chapter-card.adv  { background: linear-gradient(135deg, #FF6B9D, #A55EEA); box-shadow: 0 8px 24px rgba(255,107,157,0.3); }
+.chapter-card.voc  { background: linear-gradient(135deg, #26de81, #1E90FF); box-shadow: 0 8px 24px rgba(38,222,129,0.25); opacity:0.5; }
+
+.card-icon { font-size: 2.4rem; flex-shrink: 0; }
+.card-info { flex: 1; }
+.card-title { font-family: 'Baloo 2', cursive; font-size: 1.2rem; font-weight: 800; color: white; line-height: 1.2; }
+.card-desc  { font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-top: 0.15rem; }
+.card-badge {
+  background: rgba(255,255,255,0.25);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.card-soon { font-size: 0.7rem; color: rgba(255,255,255,0.6); font-weight: 700; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   CHAPTER SCREEN
+════════════════════════════════ */
+#chapter {
+  background: var(--bg);
+  padding-bottom: 80px;
+}
+
+.chapter-header {
+  padding: 1.2rem 1.2rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.back-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 12px;
+  width: 38px; height: 38px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: white;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.back-btn:active { background: rgba(255,255,255,0.2); }
+.chapter-header-title { font-family: 'Baloo 2', cursive; font-size: 1.3rem; font-weight: 800; }
+
+.tab-strip {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-strip::-webkit-scrollbar { display: none; }
+.tab-pill {
+  border: none;
+  border-radius: 30px;
+  padding: 0.4rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+  background: rgba(255,255,255,0.08);
+  color: var(--muted);
+}
+.tab-pill.active {
+  color: white;
+  transform: scale(1.05);
+}
+
+.chapter-content { padding: 0 1.2rem; }
+
+/* ── MINDMAP cards ── */
+.tense-block {
+  background: var(--card);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  animation: fadeUp 0.3s ease both;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(16px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.tense-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1.1rem;
+}
+.tense-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.tense-name { font-family: 'Baloo 2', cursive; font-size: 1.05rem; font-weight: 800; }
+.tense-usage { font-size: 0.75rem; color: var(--muted); margin-top: 0.05rem; }
+
+.conjugation-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.conjugation-table tr:not(:last-child) td {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.conjugation-table td {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.92rem;
+}
+.td-pronoun {
+  color: var(--muted);
+  font-weight: 700;
+  width: 38%;
+  font-size: 0.85rem;
+}
+.td-form { font-weight: 600; }
+.td-stem { color: var(--muted); }
+.td-end  { font-weight: 900; }
+
+/* ── TIP BOX ── */
+.tip-box {
+  background: rgba(255,211,42,0.1);
+  border-left: 4px solid var(--yellow);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.tip-box strong { color: var(--yellow); }
+
+/* ── QUIZ ── */
+.quiz-wrap { padding-bottom: 1rem; }
+.quiz-progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  margin-bottom: 1.2rem;
+  overflow: hidden;
+}
+.quiz-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--green), var(--teal));
+  transition: width 0.4s ease;
+}
+.quiz-score-badge {
+  text-align: right;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+.quiz-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  margin-bottom: 0.8rem;
+  animation: fadeUp 0.25s ease both;
+}
+.quiz-q {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+.quiz-q span.hl { color: var(--yellow); }
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+.quiz-opt {
+  background: rgba(255,255,255,0.07);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 0.7rem 0.5rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+.quiz-opt:active:not(.answered) { transform: scale(0.96); }
+.quiz-opt.correct { background: rgba(46,213,115,0.25); border-color: var(--green); color: var(--green); }
+.quiz-opt.wrong   { background: rgba(255,71,87,0.2); border-color: var(--red); color: var(--red); }
+.quiz-opt.answered { pointer-events: none; }
+
+.quiz-feedback {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-height: 1.2rem;
+}
+.quiz-feedback.ok  { color: var(--green); }
+.quiz-feedback.nok { color: var(--red); }
+
+.quiz-next-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  border: none;
+  border-radius: 16px;
+  padding: 0.85rem;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1rem;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+  margin-top: 0.8rem;
+  display: none;
+  transition: opacity 0.15s;
+}
+.quiz-next-btn:active { opacity: 0.8; }
+
+.quiz-result {
+  text-align: center;
+  padding: 2rem 1rem;
+  animation: fadeUp 0.3s ease both;
+}
+.result-emoji { font-size: 4rem; display: block; margin-bottom: 0.5rem; }
+.result-title { font-family: 'Baloo 2', cursive; font-size: 1.8rem; font-weight: 800; }
+.result-score { font-size: 1.1rem; color: var(--muted); margin: 0.3rem 0 1.2rem; }
+.result-retry {
+  background: linear-gradient(135deg, var(--red), var(--orange));
+  border: none;
+  border-radius: 16px;
+  padding: 0.85rem 2rem;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1rem;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: rgba(15,15,26,0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  z-index: 100;
+}
+.nav-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 0.7rem 0.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  cursor: pointer;
+  color: var(--muted);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  transition: color 0.15s;
+}
+.nav-btn .nav-icon { font-size: 1.4rem; }
+.nav-btn.active { color: var(--yellow); }
+
+/* ── SER/ESTAR SCREEN ── */
+.comparison-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.comp-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.comp-card-head {
+  padding: 0.7rem 0.9rem;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1rem;
+  font-weight: 800;
+  color: white;
+}
+.comp-card-head.ser  { background: linear-gradient(135deg, #FF4757, #FF6B35); }
+.comp-card-head.estar { background: linear-gradient(135deg, #1E90FF, #A55EEA); }
+.comp-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.82rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.comp-row:last-child { border-bottom: none; }
+.comp-pron { color: var(--muted); font-weight: 700; }
+.comp-form { font-weight: 800; }
+.comp-form.ser-c  { color: #FF6B35; }
+.comp-form.estar-c { color: #1E90FF; }
+
+.use-block {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+}
+.use-block h3 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+}
+.use-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.use-bullet { font-size: 1rem; flex-shrink: 0; }
+.use-ex { color: var(--muted); font-style: italic; display: block; margin-top: 0.1rem; }
+
+/* ── ADVERBES ── */
+.adv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+.adv-card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 0.8rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.adv-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+}
+.adv-card.time::after   { background: var(--yellow); }
+.adv-card.place::after  { background: var(--blue); }
+.adv-card.quant::after  { background: var(--green); }
+.adv-card.mode::after   { background: var(--pink); }
+.adv-esp { font-family: 'Baloo 2', cursive; font-size: 1rem; font-weight: 800; color: white; }
+.adv-fr  { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+
+.adv-section-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0.3rem 0 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ HOME ════════════ -->
+<div id="home" class="screen active">
+  <div class="home-hero">
+    <span class="hero-emoji">🌮</span>
+    <div class="hero-title">¡Español!</div>
+    <div class="hero-sub">4ème · Toutes tes fiches de révision</div>
+  </div>
+
+  <div class="section-label">📚 Chapitres</div>
+  <div class="chapter-list">
+    <button class="chapter-card ar" onclick="openChapter('ar')">
+      <div class="card-icon">🔴</div>
+      <div class="card-info">
+        <div class="card-title">Verbes en -AR</div>
+        <div class="card-desc">hablar, cantar, bailar…</div>
+      </div>
+      <div class="card-badge">5 temps</div>
+    </button>
+
+    <button class="chapter-card er" onclick="openChapter('er')">
+      <div class="card-icon">🔵</div>
+      <div class="card-info">
+        <div class="card-title">Verbes en -ER</div>
+        <div class="card-desc">comer, beber, leer…</div>
+      </div>
+      <div class="card-badge">5 temps</div>
+    </button>
+
+    <button class="chapter-card ir" onclick="openChapter('ir')">
+      <div class="card-icon">🟢</div>
+      <div class="card-info">
+        <div class="card-title">Verbes en -IR</div>
+        <div class="card-desc">vivir, escribir, abrir…</div>
+      </div>
+      <div class="card-badge">5 temps</div>
+    </button>
+
+    <button class="chapter-card ser" onclick="openChapter('ser')">
+      <div class="card-icon">⭐</div>
+      <div class="card-info">
+        <div class="card-title">Ser vs Estar</div>
+        <div class="card-desc">être permanent vs temporaire</div>
+      </div>
+      <div class="card-badge">Irréguliers</div>
+    </button>
+
+    <button class="chapter-card adv" onclick="openChapter('adv')">
+      <div class="card-icon">💫</div>
+      <div class="card-info">
+        <div class="card-title">Adverbes</div>
+        <div class="card-desc">tiempo, lugar, cantidad, modo</div>
+      </div>
+      <div class="card-badge">40 mots</div>
+    </button>
+
+    <button class="chapter-card voc">
+      <div class="card-icon">🗂️</div>
+      <div class="card-info">
+        <div class="card-title">Vocabulaire thématique</div>
+        <div class="card-desc">La famille, la maison, les loisirs…</div>
+      </div>
+      <div class="card-soon">Bientôt ✨</div>
+    </button>
+  </div>
+</div>
+
+<!-- ════════════ CHAPTER ════════════ -->
+<div id="chapter" class="screen">
+  <div class="chapter-header">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div>
+      <div class="chapter-header-title" id="chapterTitle"></div>
+    </div>
+  </div>
+
+  <div class="tab-strip" id="tabStrip"></div>
+  <div class="chapter-content" id="chapterContent"></div>
+</div>
+
+<!-- ════════════ BOTTOM NAV ════════════ -->
+<nav class="bottom-nav" id="bottomNav" style="display:none">
+  <button class="nav-btn" id="navMap" onclick="switchTab('map')">
+    <span class="nav-icon">🗺️</span>Fiches
+  </button>
+  <button class="nav-btn" id="navQuiz" onclick="switchTab('quiz')">
+    <span class="nav-icon">⚡</span>Quiz
+  </button>
+</nav>
+
+<script>
+// ═══════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════
+
+const CHAPTERS = {
+
+  // ── -AR ──────────────────────────────
+  ar: {
+    title: '🔴 Verbes en -AR',
+    tip: '<strong>La règle :</strong> On enlève le <strong>-AR</strong> de l\'infinitif et on ajoute la terminaison. Ex : <em>habl<strong>ar</strong> → habl-</em> + terminaison.',
+    tenses: [
+      {
+        name: 'Présent', color: '#1E90FF', usage: 'Action actuelle ou habituelle',
+        rows: [
+          ['yo','habl','o'],['tú','habl','as'],['él/ella','habl','a'],
+          ['nosotros','habl','amos'],['vosotros','habl','áis'],['ellos/ellas','habl','an']
+        ]
+      },
+      {
+        name: 'Prétérit indéfini', color: '#2ED573', usage: 'Action passée achevée',
+        rows: [
+          ['yo','habl','é'],['tú','habl','aste'],['él/ella','habl','ó'],
+          ['nosotros','habl','amos'],['vosotros','habl','asteis'],['ellos/ellas','habl','aron']
+        ]
+      },
+      {
+        name: 'Imparfait', color: '#FF6B35', usage: 'Action passée habituelle ou descriptive',
+        rows: [
+          ['yo','habl','aba'],['tú','habl','abas'],['él/ella','habl','aba'],
+          ['nosotros','habl','ábamos'],['vosotros','habl','abais'],['ellos/ellas','habl','aban']
+        ]
+      },
+      {
+        name: 'Futur simple', color: '#FFD32A', usage: 'Action à venir',
+        rows: [
+          ['yo','hablar','é'],['tú','hablar','ás'],['él/ella','hablar','á'],
+          ['nosotros','hablar','emos'],['vosotros','hablar','éis'],['ellos/ellas','hablar','án']
+        ]
+      },
+      {
+        name: 'Subjonctif présent', color: '#A55EEA', usage: 'Doute, souhait, ordre',
+        rows: [
+          ['yo','habl','e'],['tú','habl','es'],['él/ella','habl','e'],
+          ['nosotros','habl','emos'],['vosotros','habl','éis'],['ellos/ellas','habl','en']
+        ]
+      }
+    ],
+    examples: ['hablar','cantar','bailar','escuchar','trabajar','comprar','llamar','mirar'],
+    quiz: [
+      { q:'Comment dit-on <span class="hl">je parle</span> (présent) ?', a:'yo hablo', opts:['yo hablo','yo hablas','yo hablé','yo hablaba'] },
+      { q:'<span class="hl">Tú</span> au présent de <em>cantar</em> ?', a:'tú cantas', opts:['tú canta','tú cantas','tú cantáis','tú canté'] },
+      { q:'<span class="hl">Ellos</span> au prétérit de <em>hablar</em> ?', a:'ellos hablaron', opts:['ellos hablaban','ellos hablarán','ellos hablaron','ellos hablasten'] },
+      { q:'<span class="hl">Nosotros</span> à l\'imparfait de <em>bailar</em> ?', a:'nosotros bailábamos', opts:['nosotros bailamos','nosotros bailábamos','nosotros bailaban','nosotros bailasteis'] },
+      { q:'<span class="hl">Yo</span> au futur de <em>trabajar</em> ?', a:'yo trabajaré', opts:['yo trabajaré','yo trabajará','yo trabajara','yo trabajé'] },
+      { q:'<span class="hl">Él</span> au subjonctif de <em>hablar</em> ?', a:'él hable', opts:['él habla','él hable','él hablé','él habló'] },
+      { q:'Prétérit de <em>comprar</em> à la 2e personne (<span class="hl">tú</span>) ?', a:'tú compraste', opts:['tú compras','tú compraste','tú comprará','tú compraron'] },
+      { q:'Futur de <em>cantar</em> — <span class="hl">vosotros</span> ?', a:'vosotros cantaréis', opts:['vosotros cantáis','vosotros cantareis','vosotros cantaréis','vosotros cantarán'] },
+    ]
+  },
+
+  // ── -ER ──────────────────────────────
+  er: {
+    title: '🔵 Verbes en -ER',
+    tip: '<strong>La règle :</strong> On enlève le <strong>-ER</strong> et on ajoute la terminaison. Ex : <em>com<strong>er</strong> → com-</em> + terminaison.',
+    tenses: [
+      {
+        name: 'Présent', color: '#1E90FF', usage: 'Action actuelle ou habituelle',
+        rows: [
+          ['yo','com','o'],['tú','com','es'],['él/ella','com','e'],
+          ['nosotros','com','emos'],['vosotros','com','éis'],['ellos/ellas','com','en']
+        ]
+      },
+      {
+        name: 'Prétérit indéfini', color: '#2ED573', usage: 'Action passée achevée',
+        rows: [
+          ['yo','com','í'],['tú','com','iste'],['él/ella','com','ió'],
+          ['nosotros','com','imos'],['vosotros','com','isteis'],['ellos/ellas','com','ieron']
+        ]
+      },
+      {
+        name: 'Imparfait', color: '#FF6B35', usage: 'Action passée habituelle ou descriptive',
+        rows: [
+          ['yo','com','ía'],['tú','com','ías'],['él/ella','com','ía'],
+          ['nosotros','com','íamos'],['vosotros','com','íais'],['ellos/ellas','com','ían']
+        ]
+      },
+      {
+        name: 'Futur simple', color: '#FFD32A', usage: 'Action à venir',
+        rows: [
+          ['yo','comer','é'],['tú','comer','ás'],['él/ella','comer','á'],
+          ['nosotros','comer','emos'],['vosotros','comer','éis'],['ellos/ellas','comer','án']
+        ]
+      },
+      {
+        name: 'Subjonctif présent', color: '#A55EEA', usage: 'Doute, souhait, ordre',
+        rows: [
+          ['yo','com','a'],['tú','com','as'],['él/ella','com','a'],
+          ['nosotros','com','amos'],['vosotros','com','áis'],['ellos/ellas','com','an']
+        ]
+      }
+    ],
+    examples: ['comer','beber','leer','vender','correr','aprender','comprender','responder'],
+    quiz: [
+      { q:'Comment dit-on <span class="hl">je mange</span> (présent) ?', a:'yo como', opts:['yo come','yo como','yo comer','yo comé'] },
+      { q:'<span class="hl">Tú</span> au présent de <em>beber</em> ?', a:'tú bebes', opts:['tú bebas','tú bebe','tú bebes','tú bebéis'] },
+      { q:'<span class="hl">Ellos</span> au prétérit de <em>comer</em> ?', a:'ellos comieron', opts:['ellos comaron','ellos comieron','ellos comían','ellos comeran'] },
+      { q:'<span class="hl">Nosotros</span> à l\'imparfait de <em>beber</em> ?', a:'nosotros bebíamos', opts:['nosotros bebemos','nosotros bebíamos','nosotros bebían','nosotros bebisteis'] },
+      { q:'<span class="hl">Yo</span> au futur de <em>comer</em> ?', a:'yo comeré', opts:['yo comeré','yo comerá','yo comí','yo como'] },
+      { q:'<span class="hl">Él</span> au subjonctif de <em>comer</em> ?', a:'él coma', opts:['él come','él coma','él comía','él comió'] },
+    ]
+  },
+
+  // ── -IR ──────────────────────────────
+  ir: {
+    title: '🟢 Verbes en -IR',
+    tip: '<strong>La règle :</strong> On enlève le <strong>-IR</strong> et on ajoute la terminaison. Ex : <em>viv<strong>ir</strong> → viv-</em> + terminaison.',
+    tenses: [
+      {
+        name: 'Présent', color: '#1E90FF', usage: 'Action actuelle ou habituelle',
+        rows: [
+          ['yo','viv','o'],['tú','viv','es'],['él/ella','viv','e'],
+          ['nosotros','viv','imos'],['vosotros','viv','ís'],['ellos/ellas','viv','en']
+        ]
+      },
+      {
+        name: 'Prétérit indéfini', color: '#2ED573', usage: 'Action passée achevée',
+        rows: [
+          ['yo','viv','í'],['tú','viv','iste'],['él/ella','viv','ió'],
+          ['nosotros','viv','imos'],['vosotros','viv','isteis'],['ellos/ellas','viv','ieron']
+        ]
+      },
+      {
+        name: 'Imparfait', color: '#FF6B35', usage: 'Action passée habituelle ou descriptive',
+        rows: [
+          ['yo','viv','ía'],['tú','viv','ías'],['él/ella','viv','ía'],
+          ['nosotros','viv','íamos'],['vosotros','viv','íais'],['ellos/ellas','viv','ían']
+        ]
+      },
+      {
+        name: 'Futur simple', color: '#FFD32A', usage: 'Action à venir',
+        rows: [
+          ['yo','vivir','é'],['tú','vivir','ás'],['él/ella','vivir','á'],
+          ['nosotros','vivir','emos'],['vosotros','vivir','éis'],['ellos/ellas','vivir','án']
+        ]
+      },
+      {
+        name: 'Subjonctif présent', color: '#A55EEA', usage: 'Doute, souhait, ordre',
+        rows: [
+          ['yo','viv','a'],['tú','viv','as'],['él/ella','viv','a'],
+          ['nosotros','viv','amos'],['vosotros','viv','áis'],['ellos/ellas','viv','an']
+        ]
+      }
+    ],
+    examples: ['vivir','escribir','abrir','recibir','subir','salir','decir','venir'],
+    quiz: [
+      { q:'Comment dit-on <span class="hl">je vis</span> (présent) ?', a:'yo vivo', opts:['yo vives','yo vivo','yo vivís','yo viví'] },
+      { q:'<span class="hl">Vosotros</span> au présent de <em>vivir</em> ?', a:'vosotros vivís', opts:['vosotros vivéis','vosotros vivís','vosotros viven','vosotros vivimos'] },
+      { q:'<span class="hl">Ella</span> au prétérit de <em>escribir</em> ?', a:'ella escribió', opts:['ella escribió','ella escribía','ella escribirá','ella escribiste'] },
+      { q:'<span class="hl">Yo</span> au futur de <em>vivir</em> ?', a:'yo viviré', opts:['yo viviré','yo vivirá','yo vivía','yo vivió'] },
+      { q:'<span class="hl">Ellos</span> au subjonctif de <em>vivir</em> ?', a:'ellos vivan', opts:['ellos viven','ellos vivan','ellos vivían','ellos vivirán'] },
+    ]
+  },
+
+  // ── SER / ESTAR ──────────────────────
+  ser: {
+    title: '⭐ Ser vs Estar',
+    tip: 'Les deux signifient <strong>"être"</strong> mais ne s\'utilisent pas pareil !',
+    quiz: [
+      { q:'Je suis française (nationalité) → <span class="hl">Ser ou Estar ?</span>', a:'SER', opts:['SER','ESTAR'] },
+      { q:'Il est fatigué (état temporaire) → <span class="hl">Ser ou Estar ?</span>', a:'ESTAR', opts:['SER','ESTAR'] },
+      { q:'La table est en bois (matière) → <span class="hl">Ser ou Estar ?</span>', a:'SER', opts:['SER','ESTAR'] },
+      { q:'Nous sommes à Madrid (lieu) → <span class="hl">Ser ou Estar ?</span>', a:'ESTAR', opts:['SER','ESTAR'] },
+      { q:'Elle est médecin (profession) → <span class="hl">Ser ou Estar ?</span>', a:'SER', opts:['SER','ESTAR'] },
+      { q:'Tu es content aujourd\'hui → <span class="hl">Ser ou Estar ?</span>', a:'ESTAR', opts:['SER','ESTAR'] },
+      { q:'<span class="hl">Yo</span> — SER au présent ?', a:'soy', opts:['soy','estoy','eres','es'] },
+      { q:'<span class="hl">Nosotros</span> — ESTAR au présent ?', a:'estamos', opts:['somos','estáis','estamos','están'] },
+    ]
+  },
+
+  // ── ADVERBES ─────────────────────────
+  adv: {
+    title: '💫 Adverbes',
+    tip: 'Les adverbes ne changent <strong>jamais</strong> de forme en espagnol. Ils s\'apprennent par cœur !',
+    quiz: [
+      { q:'Comment dit-on <span class="hl">maintenant</span> ?', a:'ahora', opts:['después','ahora','siempre','nunca'] },
+      { q:'Comment dit-on <span class="hl">toujours</span> ?', a:'siempre', opts:['jamás','nunca','siempre','ya'] },
+      { q:'Comment dit-on <span class="hl">ici</span> ?', a:'aquí', opts:['allí','aquí','cerca','lejos'] },
+      { q:'Comment dit-on <span class="hl">beaucoup</span> ?', a:'mucho', opts:['poco','más','mucho','bastante'] },
+      { q:'Comment dit-on <span class="hl">jamais</span> ?', a:'nunca / jamás', opts:['nunca / jamás','siempre','ya','todavía'] },
+      { q:'Comment dit-on <span class="hl">vite</span> ?', a:'rápidamente', opts:['despacio','bien','rápidamente','mal'] },
+      { q:'Comment dit-on <span class="hl">là-bas</span> ?', a:'allí', opts:['aquí','cerca','allí','lejos'] },
+      { q:'Comment dit-on <span class="hl">déjà</span> ?', a:'ya', opts:['todavía','ya','antes','después'] },
+    ]
+  }
+};
+
+// ═══════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════
+let currentChapter = null;
+let currentTab = 'map';
+let quizState = {};
+
+// ═══════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goHome() {
+  show('home');
+  document.getElementById('bottomNav').style.display = 'none';
+}
+
+function openChapter(key) {
+  currentChapter = key;
+  currentTab = 'map';
+  const data = CHAPTERS[key];
+  document.getElementById('chapterTitle').textContent = data.title;
+  buildTabStrip(key);
+  renderTab('map');
+  show('chapter');
+  document.getElementById('bottomNav').style.display = 'flex';
+  updateNavHighlight();
+}
+
+function buildTabStrip(key) {
+  const strip = document.getElementById('tabStrip');
+  strip.innerHTML = '';
+  const hasMap = key !== 'ser'; // ser has no tense table
+  if (hasMap || key === 'ser' || key === 'adv') {
+    if (key !== 'ser' && key !== 'adv') {
+      const btn = document.createElement('button');
+      btn.className = 'tab-pill active';
+      btn.textContent = '🗺️ Fiches';
+      btn.onclick = () => switchTab('map');
+      btn.id = 'pill-map';
+      strip.appendChild(btn);
+    }
+  }
+  // For ser/adv, only quiz tab on strip
+  const qbtn = document.createElement('button');
+  qbtn.className = 'tab-pill' + (key === 'ser' || key === 'adv' ? ' active' : '');
+  qbtn.textContent = '⚡ Quiz';
+  qbtn.onclick = () => switchTab('quiz');
+  qbtn.id = 'pill-quiz';
+  strip.appendChild(qbtn);
+
+  // tense pills for mindmap chapters
+  if (key !== 'ser' && key !== 'adv') {
+    CHAPTERS[key].tenses.forEach((t, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'tab-pill';
+      btn.textContent = t.name;
+      btn.style.borderLeft = `3px solid ${t.color}`;
+      btn.onclick = () => scrollToTense(i);
+      strip.appendChild(btn);
+    });
+  }
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  renderTab(tab);
+  updateNavHighlight();
+  document.getElementById('chapter').scrollTop = 0;
+}
+
+function updateNavHighlight() {
+  document.getElementById('navMap').classList.toggle('active', currentTab === 'map');
+  document.getElementById('navQuiz').classList.toggle('active', currentTab === 'quiz');
+  document.querySelectorAll('.tab-pill').forEach(p => p.classList.remove('active'));
+  const pill = document.getElementById('pill-' + currentTab);
+  if (pill) pill.classList.add('active');
+}
+
+function scrollToTense(i) {
+  if (currentTab !== 'map') { currentTab = 'map'; renderTab('map'); }
+  setTimeout(() => {
+    const blocks = document.querySelectorAll('.tense-block');
+    if (blocks[i]) blocks[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
+// ═══════════════════════════════════════
+//  RENDER MAP
+// ═══════════════════════════════════════
+function renderTab(tab) {
+  const content = document.getElementById('chapterContent');
+  const data = CHAPTERS[currentChapter];
+  content.innerHTML = '';
+
+  if (tab === 'map') {
+    renderMap(content, data);
+  } else {
+    renderQuiz(content, data);
+  }
+}
+
+function renderMap(container, data) {
+  // tip
+  const tip = document.createElement('div');
+  tip.className = 'tip-box';
+  tip.innerHTML = data.tip;
+  container.appendChild(tip);
+
+  // SER/ESTAR special layout
+  if (currentChapter === 'ser') {
+    renderSerEstar(container);
+    return;
+  }
+
+  // ADVERBES special layout
+  if (currentChapter === 'adv') {
+    renderAdverbes(container);
+    return;
+  }
+
+  // Tense blocks
+  data.tenses.forEach((t, i) => {
+    const block = document.createElement('div');
+    block.className = 'tense-block';
+    block.style.animationDelay = (i * 0.07) + 's';
+
+    const header = document.createElement('div');
+    header.className = 'tense-header';
+    header.innerHTML = `
+      <div class="tense-dot" style="background:${t.color}"></div>
+      <div>
+        <div class="tense-name" style="color:${t.color}">${t.name}</div>
+        <div class="tense-usage">${t.usage}</div>
+      </div>`;
+    block.appendChild(header);
+
+    const table = document.createElement('table');
+    table.className = 'conjugation-table';
+    t.rows.forEach(([pron, stem, end]) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="td-pronoun">${pron}</td>
+        <td class="td-form"><span class="td-stem">${stem}</span><span class="td-end" style="color:${t.color}">${end}</span></td>`;
+      table.appendChild(tr);
+    });
+    block.appendChild(table);
+    container.appendChild(block);
+  });
+
+  // Examples
+  const exLabel = document.createElement('div');
+  exLabel.className = 'section-label';
+  exLabel.style.padding = '0.5rem 0';
+  exLabel.textContent = '✏️ Verbes courants';
+  container.appendChild(exLabel);
+
+  const exGrid = document.createElement('div');
+  exGrid.style.cssText = 'display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem';
+  data.examples.forEach(v => {
+    const chip = document.createElement('div');
+    chip.style.cssText = 'background:rgba(255,255,255,0.08);border-radius:20px;padding:0.35rem 0.8rem;font-size:0.85rem;font-weight:700';
+    chip.textContent = v;
+    exGrid.appendChild(chip);
+  });
+  container.appendChild(exGrid);
+}
+
+function renderSerEstar(container) {
+  // Conjugation comparison
+  const serData = [['yo','soy'],['tú','eres'],['él/ella','es'],['nosotros','somos'],['vosotros','sois'],['ellos','son']];
+  const estarData = [['yo','estoy'],['tú','estás'],['él/ella','está'],['nosotros','estamos'],['vosotros','estáis'],['ellos','están']];
+
+  const grid = document.createElement('div');
+  grid.className = 'comparison-block';
+
+  const makeSide = (title, cls, rows, colorCls) => {
+    const card = document.createElement('div');
+    card.className = 'comp-card';
+    card.innerHTML = `<div class="comp-card-head ${cls}">${title}</div>`;
+    rows.forEach(([p, f]) => {
+      card.innerHTML += `<div class="comp-row"><span class="comp-pron">${p}</span><span class="comp-form ${colorCls}">${f}</span></div>`;
+    });
+    return card;
+  };
+  grid.appendChild(makeSide('SER', 'ser', serData, 'ser-c'));
+  grid.appendChild(makeSide('ESTAR', 'estar', estarData, 'estar-c'));
+  container.appendChild(grid);
+
+  // Usage blocks
+  const uses = [
+    { title: '🔴 SER — caractéristiques permanentes', color: '#FF4757', items: [
+      ['🌍', 'Nationalité / origine', '"Soy francesa."'],
+      ['💼', 'Profession', '"Es médico."'],
+      ['🏗️', 'Matière', '"La mesa es de madera."'],
+      ['👨‍👩‍👧', 'Relations', '"Es mi madre."'],
+      ['🕐', 'Heure / date', '"Son las tres."'],
+    ]},
+    { title: '🔵 ESTAR — états temporaires / lieu', color: '#1E90FF', items: [
+      ['📍', 'Localisation', '"Estoy en Madrid."'],
+      ['😴', 'État physique', '"Estás cansado."'],
+      ['😊', 'État émotionnel', '"Estamos contentos."'],
+      ['🤒', 'Santé', '"Él está enfermo."'],
+      ['🔨', 'Résultat d\'action', '"La puerta está abierta."'],
+    ]},
+  ];
+
+  uses.forEach(u => {
+    const block = document.createElement('div');
+    block.className = 'use-block';
+    block.innerHTML = `<h3 style="color:${u.color}">${u.title}</h3>`;
+    u.items.forEach(([emoji, label, ex]) => {
+      block.innerHTML += `<div class="use-item"><span class="use-bullet">${emoji}</span><div><strong>${label}</strong><span class="use-ex">${ex}</span></div></div>`;
+    });
+    container.appendChild(block);
+  });
+}
+
+function renderAdverbes(container) {
+  const sections = [
+    { label: '🕐 Temps (Tiempo)', cls: 'time', words: [
+      ['ahora','maintenant'],['después','après'],['antes','avant'],['siempre','toujours'],
+      ['nunca / jamás','jamais'],['ya','déjà'],['todavía','encore'],['pronto','bientôt'],
+      ['tarde','tard'],['temprano','tôt'],['hoy','aujourd\'hui'],['mañana','demain'],
+    ]},
+    { label: '📍 Lieu (Lugar)', cls: 'place', words: [
+      ['aquí / acá','ici'],['allí / allá','là-bas'],['cerca','près'],['lejos','loin'],
+      ['arriba','en haut'],['abajo','en bas'],['dentro','dedans'],['fuera','dehors'],
+      ['delante','devant'],['detrás','derrière'],
+    ]},
+    { label: '📊 Quantité (Cantidad)', cls: 'quant', words: [
+      ['mucho','beaucoup'],['poco','peu'],['más','plus'],['menos','moins'],
+      ['bastante','assez'],['demasiado','trop'],['todo','tout'],['nada','rien'],
+    ]},
+    { label: '✨ Mode (Modo)', cls: 'mode', words: [
+      ['bien','bien'],['mal','mal'],['rápidamente','vite'],['despacio','lentement'],
+      ['así','ainsi'],['mejor','mieux'],['peor','pire'],['fácilmente','facilement'],
+    ]},
+  ];
+
+  sections.forEach(sec => {
+    const title = document.createElement('div');
+    title.className = 'adv-section-title';
+    title.innerHTML = sec.label;
+    container.appendChild(title);
+
+    const grid = document.createElement('div');
+    grid.className = 'adv-grid';
+    sec.words.forEach(([esp, fr]) => {
+      const card = document.createElement('div');
+      card.className = `adv-card ${sec.cls}`;
+      card.innerHTML = `<div class="adv-esp">${esp}</div><div class="adv-fr">${fr}</div>`;
+      grid.appendChild(card);
+    });
+    container.appendChild(grid);
+  });
+}
+
+// ═══════════════════════════════════════
+//  RENDER QUIZ
+// ═══════════════════════════════════════
+function renderQuiz(container, data) {
+  const wrap = document.createElement('div');
+  wrap.className = 'quiz-wrap';
+
+  const questions = data.quiz;
+  let qi = 0, score = 0;
+  let answered = false;
+
+  const progressBar = document.createElement('div');
+  progressBar.className = 'quiz-progress-bar';
+  progressBar.innerHTML = `<div class="quiz-progress-fill" id="qFill" style="width:0%"></div>`;
+  wrap.appendChild(progressBar);
+
+  const scoreBadge = document.createElement('div');
+  scoreBadge.className = 'quiz-score-badge';
+  scoreBadge.id = 'qScore';
+  scoreBadge.textContent = `0 / ${questions.length}`;
+  wrap.appendChild(scoreBadge);
+
+  const cardEl = document.createElement('div');
+  wrap.appendChild(cardEl);
+
+  container.appendChild(wrap);
+
+  function renderQ() {
+    if (qi >= questions.length) {
+      showResult();
+      return;
+    }
+    answered = false;
+    const q = questions[qi];
+    document.getElementById('qFill').style.width = (qi / questions.length * 100) + '%';
+    document.getElementById('qScore').textContent = `${score} / ${questions.length}`;
+
+    // shuffle opts
+    const opts = [...q.opts].sort(() => Math.random() - 0.5);
+
+    cardEl.innerHTML = `
+      <div class="quiz-card">
+        <div class="quiz-q">Q${qi + 1}/${questions.length} — ${q.q}</div>
+        <div class="quiz-options">
+          ${opts.map(o => `<button class="quiz-opt" onclick="answerQ(this,'${escQ(o)}','${escQ(q.a)}')">${o}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="qFeedback"></div>
+        <button class="quiz-next-btn" id="qNext" onclick="nextQ()">Suivant →</button>
+      </div>`;
+  }
+
+  window.answerQ = (btn, chosen, correct) => {
+    if (answered) return;
+    answered = true;
+    const allBtns = btn.parentElement.querySelectorAll('.quiz-opt');
+    allBtns.forEach(b => {
+      b.classList.add('answered');
+      if (b.textContent === correct) b.classList.add('correct');
+    });
+    const fb = document.getElementById('qFeedback');
+    if (chosen === correct) {
+      btn.classList.add('correct');
+      fb.className = 'quiz-feedback ok';
+      fb.textContent = '✅ Bravo !';
+      score++;
+    } else {
+      btn.classList.add('wrong');
+      fb.className = 'quiz-feedback nok';
+      fb.textContent = `❌ C'était : ${correct}`;
+    }
+    document.getElementById('qNext').style.display = 'block';
+  };
+
+  window.nextQ = () => { qi++; renderQ(); };
+
+  function showResult() {
+    document.getElementById('qFill').style.width = '100%';
+    const pct = Math.round(score / questions.length * 100);
+    const emoji = pct >= 80 ? '🏆' : pct >= 50 ? '💪' : '😅';
+    const msg = pct >= 80 ? '¡Excelente!' : pct >= 50 ? '¡Bien hecho!' : '¡Sigue practicando!';
+    cardEl.innerHTML = `
+      <div class="quiz-result">
+        <span class="result-emoji">${emoji}</span>
+        <div class="result-title">${msg}</div>
+        <div class="result-score">${score} / ${questions.length} bonnes réponses (${pct}%)</div>
+        <button class="result-retry" onclick="retryQuiz()">🔄 Recommencer</button>
+      </div>`;
+  }
+
+  window.retryQuiz = () => {
+    qi = 0; score = 0;
+    renderQ();
+  };
+
+  renderQ();
+}
+
+function escQ(s) { return s.replace(/'/g, "\\'"); }
+
+// Default: ser/adv open on quiz, others on map
+function openChapter(key) {
+  currentChapter = key;
+  currentTab = (key === 'ser' || key === 'adv') ? 'quiz' : 'map';
+  const data = CHAPTERS[key];
+  document.getElementById('chapterTitle').textContent = data.title;
+  buildTabStrip(key);
+  renderTab(currentTab);
+  show('chapter');
+  document.getElementById('bottomNav').style.display = 'flex';
+  updateNavHighlight();
+}
+</script>
+</body>
+</html>
