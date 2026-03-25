@@ -72,9 +72,11 @@ body {
 .chapter-card.ir    { background: linear-gradient(135deg,#2ED573,#26de81); box-shadow: 0 8px 24px rgba(46,213,115,0.3); }
 .chapter-card.ser   { background: linear-gradient(135deg,#FFD32A,#FF6B35); box-shadow: 0 8px 24px rgba(255,211,42,0.3); }
 .chapter-card.irr   { background: linear-gradient(135deg,#A55EEA,#FF6B9D); box-shadow: 0 8px 24px rgba(165,94,234,0.35); }
+.chapter-card.pc    { background: linear-gradient(135deg,#FF6B35,#FFD32A); box-shadow: 0 8px 24px rgba(255,107,53,0.3); }
 .chapter-card.adv   { background: linear-gradient(135deg,#FF6B9D,#A55EEA); box-shadow: 0 8px 24px rgba(255,107,157,0.3); }
 .chapter-card.gusta { background: linear-gradient(135deg,#FF4757,#FF6B9D); box-shadow: 0 8px 24px rgba(255,71,87,0.3); }
 .chapter-card.salud { background: linear-gradient(135deg,#26de81,#1E90FF); box-shadow: 0 8px 24px rgba(38,222,129,0.3); }
+.chapter-card.casa  { background: linear-gradient(135deg,#FFD32A,#26de81); box-shadow: 0 8px 24px rgba(255,211,42,0.3); }
 .chapter-card.voc   { background: linear-gradient(135deg,#26de81,#1E90FF); box-shadow: 0 8px 24px rgba(38,222,129,0.25); opacity:0.45; }
 .card-icon { font-size: 2.2rem; flex-shrink: 0; }
 .card-info { flex: 1; }
@@ -284,8 +286,13 @@ body {
       </button>
       <button class="chapter-card irr"  onclick="openChapter('irr')">
         <div class="card-icon">⚡</div>
-        <div class="card-info"><div class="card-title">Verbes irréguliers</div><div class="card-desc">querer, poder, tener, ir, hacer…</div></div>
-        <div class="card-badge">8 verbes</div>
+        <div class="card-info"><div class="card-title">Verbes irréguliers</div><div class="card-desc">querer, poder, tener, ir, hacer, caer, dar…</div></div>
+        <div class="card-badge">12 verbes</div>
+      </button>
+      <button class="chapter-card pc"   onclick="openChapter('pc')">
+        <div class="card-icon">🕐</div>
+        <div class="card-info"><div class="card-title">Passé composé</div><div class="card-desc">haber + participe passé</div></div>
+        <div class="card-badge">Temps</div>
       </button>
     </div>
 
@@ -305,6 +312,11 @@ body {
         <div class="card-icon">🏥</div>
         <div class="card-info"><div class="card-title">La santé</div><div class="card-desc">estoy enfermo, me duele…</div></div>
         <div class="card-badge">Corps + maladie</div>
+      </button>
+      <button class="chapter-card casa" onclick="openChapter('casa')">
+        <div class="card-icon">🏠</div>
+        <div class="card-info"><div class="card-title">La maison</div><div class="card-desc">ranger, ménage, pièces, objets…</div></div>
+        <div class="card-badge">Thématique</div>
       </button>
     </div>
 
@@ -453,15 +465,55 @@ const QUIZ_POOL = {
     {q:'"Je vais à l\'école" en espagnol ?', a:'Voy al colegio', opts:['Voy al colegio','Vamos al colegio','Vas al colegio','Ir al colegio']},
     // hacer
     {q:'<em>Hacer</em> — <span class="hl">yo</span> au présent ?', a:'hago', opts:['hago','haces','hace','hacemos']},
-    {q:'<em>Hacer</em> — <span class="hl">tú</span> au présent ?', a:'haces', opts:['hago','haces','hagos','hacéis']},
     {q:'"Qu\'est-ce que tu fais ?" en espagnol ?', a:'¿Qué haces?', opts:['¿Qué haces?','¿Qué hago?','¿Qué hace?','¿Qué hacéis?']},
-    // decir
-    {q:'<em>Decir</em> — <span class="hl">yo</span> au présent ?', a:'digo', opts:['digo','dices','dice','decimos']},
-    {q:'<em>Venir</em> — <span class="hl">yo</span> au présent ?', a:'vengo', opts:['vengo','vienes','viene','venimos']},
-    {q:'<em>Venir</em> — <span class="hl">tú</span> au présent ?', a:'vienes', opts:['vengo','vienes','viene','venís']},
+    // caer
+    {q:'<em>Caer</em> — <span class="hl">yo</span> au présent ?', a:'caigo', opts:['caigo','caes','cae','cayó']},
+    {q:'"Je tombe" en espagnol ?', a:'Me caigo', opts:['Me caigo','Me cayo','Caigo','Me caí']},
+    {q:'<em>Caer</em> — <span class="hl">él</span> au présent ?', a:'cae', opts:['caigo','caes','cae','caen']},
+    // andar
+    {q:'<em>Andar</em> — <span class="hl">yo</span> au présent ?', a:'ando', opts:['ando','andas','anda','andamos']},
+    {q:'"Comment ça va?" (familier, espagnol) ?', a:'¿Cómo andas?', opts:['¿Cómo andas?','¿Cómo estás?','¿Cómo vas?','¿Cómo eres?']},
+    // coger
+    {q:'<em>Coger</em> — <span class="hl">yo</span> au présent ?', a:'cojo', opts:['cojo','coges','coge','cogemos']},
+    {q:'"Prendre le bus" en espagnol ?', a:'Coger el autobús', opts:['Coger el autobús','Tomar el autobús','Cojo el autobús','Coger autobús']},
+    {q:'"Prendre froid" en espagnol ?', a:'Coger un resfriado', opts:['Coger un resfriado','Tener frío','Coger frío','Coger gripe']},
+    // dar
+    {q:'<em>Dar</em> — <span class="hl">yo</span> au présent ?', a:'doy', opts:['doy','das','da','damos']},
+    {q:'"Ça m\'est égal" en espagnol ?', a:'Me da igual', opts:['Me da igual','Me gusta igual','Es igual','Me parece igual']},
+    {q:'"Donne-moi le livre" en espagnol ?', a:'Dame el libro', opts:['Dame el libro','Dar el libro','Dáme libro','Da me el libro']},
+    // romper
+    {q:'<em>Romper</em> — <span class="hl">yo</span> au présent ?', a:'rompo', opts:['rompo','rompes','rompe','rompemos']},
+    {q:'"J\'ai cassé le verre" (prét.) ?', a:'Rompí el vaso', opts:['Rompí el vaso','Rompo el vaso','He roto el vaso','Rompió el vaso']},
+    // herirse
+    {q:'"Je me suis blessé" (p.composé) ?', a:'Me he herido', opts:['Me he herido','Me hiero','Me herí','He herido']},
+    {q:'"Tu te blesses" (présent) ?', a:'Te hieres', opts:['Te hieres','Te heres','Te heriste','Te herías']},
     // gustar
     {q:'"J\'aime le football" en espagnol ?', a:'Me gusta el fútbol', opts:['Me gusta el fútbol','Gusto el fútbol','Me gustan el fútbol','Me gusta fútbol']},
     {q:'"J\'aime les films" (pluriel) ?', a:'Me gustan las películas', opts:['Me gusta las películas','Me gustan las películas','Gusto las películas','Me gustan película']},
+  ],
+
+  pc: [
+    {q:'Comment former le passé composé en espagnol ?', a:'haber (présent) + participe passé', opts:['haber (présent) + participe passé','ser + participe','haber (imparfait) + infinitif','tener + participe']},
+    {q:'<em>Haber</em> — <span class="hl">yo</span> au présent ?', a:'he', opts:['he','has','ha','hemos']},
+    {q:'<em>Haber</em> — <span class="hl">tú</span> au présent ?', a:'has', opts:['he','has','ha','habéis']},
+    {q:'<em>Haber</em> — <span class="hl">él/ella</span> au présent ?', a:'ha', opts:['he','has','ha','han']},
+    {q:'<em>Haber</em> — <span class="hl">nosotros</span> au présent ?', a:'hemos', opts:['hemos','habéis','han','haban']},
+    {q:'<em>Haber</em> — <span class="hl">ellos</span> au présent ?', a:'han', opts:['hemos','habéis','han','haban']},
+    {q:'Participe passé de <em>hablar</em> ?', a:'hablado', opts:['hablado','hablido','habló','hablando']},
+    {q:'Participe passé de <em>comer</em> ?', a:'comido', opts:['comado','comido','comió','comiendo']},
+    {q:'Participe passé de <em>vivir</em> ?', a:'vivido', opts:['vivado','vivido','vivió','viviendo']},
+    {q:'Participe passé irrég. de <em>hacer</em> ?', a:'hecho', opts:['hecho','hacido','hacido','hació']},
+    {q:'Participe passé irrég. de <em>decir</em> ?', a:'dicho', opts:['dicho','decido','decid','diciado']},
+    {q:'Participe passé irrég. de <em>romper</em> ?', a:'roto', opts:['roto','rompido','rompado','romp']},
+    {q:'Participe passé irrég. de <em>ver</em> ?', a:'visto', opts:['visto','veído','vido','vería']},
+    {q:'Participe passé irrég. de <em>escribir</em> ?', a:'escrito', opts:['escrito','escribido','escribado','escribó']},
+    {q:'"J\'ai mangé" en espagnol ?', a:'He comido', opts:['He comido','He comado','Hube comido','Ha comido']},
+    {q:'"Elle a parlé" en espagnol ?', a:'Ha hablado', opts:['Ha hablado','He hablado','Ha habló','Ha hablando']},
+    {q:'"Nous avons vécu" en espagnol ?', a:'Hemos vivido', opts:['Hemos vivido','Habemos vivido','Hemos vivado','Hemos vivir']},
+    {q:'"Tu as fait" en espagnol ?', a:'Has hecho', opts:['Has hecho','Has hacido','Has hacer','Haces']},
+    {q:'"Ils ont cassé" (romper) ?', a:'Han roto', opts:['Han roto','Han rompido','Han romper','Rompieron']},
+    {q:'"Je me suis blessé" en espagnol ?', a:'Me he herido', opts:['Me he herido','He herido','Me herí','Me hiero']},
+    {q:'Différence p.composé / prétérit ?', a:'P.composé = lié au présent ; prétérit = passé achevé lointain', opts:['P.composé = lié au présent ; prétérit = passé achevé lointain','Identiques','P.composé = plus lointain','Prétérit = avec haber']},
   ],
 
   adv: [
@@ -512,7 +564,71 @@ const QUIZ_POOL = {
     {q:'Duele ou Duelen pour "les pieds" ?', a:'Me duelen los pies', opts:['Me duelen los pies','Me duele los pies','Tengo dolor los pies','Me duele pies']},
     {q:'Comment dit-on <span class="hl">la gorge</span> ?', a:'la garganta', opts:['la nariz','la boca','la garganta','el ojo']},
     {q:'"Je me sens bien" en espagnol ?', a:'Me encuentro bien', opts:['Me encuentro bien','Estoy bien','Me siento bien','Soy bien']},
+    {q:'"Le nez me démange" (picar) ?', a:'Me pica la nariz', opts:['Me pica la nariz','Me duele la nariz','Tengo la nariz','Me pican la nariz']},
+    {q:'Comment dit-on <span class="hl">des cernes</span> ?', a:'ojeras', opts:['ojeras','orejas','ojitos','cejas']},
+    {q:'"J\'ai des cernes" en espagnol ?', a:'Tengo ojeras', opts:['Tengo ojeras','Estoy ojeras','Soy ojeras','Tengo ojos']},
+    {q:'Comment dit-on <span class="hl">les symptômes</span> ?', a:'los síntomas', opts:['los síntomas','las enfermedades','los dolores','los problemas']},
+    {q:'Comment dit-on <span class="hl">un bonnet</span> (de malade) ?', a:'un gorro', opts:['un gorro','un pañuelo','un abrigo','un jersey']},
+    {q:'Comment dit-on <span class="hl">un mouchoir</span> ?', a:'un pañuelo', opts:['un gorro','un pañuelo','una bufanda','un papel']},
+    {q:'"Trembler" en espagnol ?', a:'temblar', opts:['temblar','tiritar','vibrar','agitar']},
+    {q:'"Je tremble de froid" en espagnol ?', a:'Tirito de frío', opts:['Tirito de frío','Temblo de frío','Tengo frío','Me congelo']},
+    {q:'"Prendre froid" en espagnol ?', a:'Coger un resfriado', opts:['Coger un resfriado','Tener frío','Coger frío','Ponerse enfermo']},
+    {q:'"Saigner" en espagnol ?', a:'sangrar', opts:['sangrar','doler','cortarse','herirse']},
+    {q:'"Je saigne" en espagnol ?', a:'Sangro / Me sangra', opts:['Sangro / Me sangra','Tengo sangre','Estoy sangrando yo','Me duele sangre']},
+    {q:'"Je suis fatigué(e)" en espagnol ?', a:'Estoy cansado/a', opts:['Estoy cansado/a','Soy cansado','Tengo cansancio','Estoy agotado']},
   ],
+
+  casa: [
+    {q:'Comment dit-on <span class="hl">la chambre</span> ?', a:'la habitación', opts:['la habitación','el salón','la cocina','el baño']},
+    {q:'Comment dit-on <span class="hl">la cuisine</span> ?', a:'la cocina', opts:['la habitación','el salón','la cocina','el comedor']},
+    {q:'Comment dit-on <span class="hl">le salon</span> ?', a:'el salón', opts:['el salón','la habitación','el pasillo','el sótano']},
+    {q:'Comment dit-on <span class="hl">la salle de bain</span> ?', a:'el baño', opts:['el baño','el aseo','la cocina','la habitación']},
+    {q:'Comment dit-on <span class="hl">ranger sa chambre</span> ?', a:'ordenar la habitación', opts:['ordenar la habitación','limpiar la habitación','barrer la habitación','recoger la habitación']},
+    {q:'"Faire la lessive" en espagnol ?', a:'hacer la colada', opts:['hacer la colada','lavar los platos','fregar el suelo','tender la ropa']},
+    {q:'"Ranger le linge" (plier) en espagnol ?', a:'doblar la ropa', opts:['doblar la ropa','tender la ropa','lavar la ropa','planchar la ropa']},
+    {q:'"Mettre la table" en espagnol ?', a:'poner la mesa', opts:['poner la mesa','hacer la mesa','colocar la mesa','ordenar la mesa']},
+    {q:'"Faire la vaisselle" en espagnol ?', a:'fregar / lavar los platos', opts:['fregar / lavar los platos','hacer los platos','barrer los platos','poner los platos']},
+    {q:'"Elle me demande de..." → structure ?', a:'Ella me pide que + subjonctif', opts:['Ella me pide que + subjonctif','Ella me pide + infinitif','Ella quiere + infinitif','Ella dice que + indicatif']},
+    {q:'"Elle me demande que je range" ?', a:'Ella me pide que ordene', opts:['Ella me pide que ordene','Ella me pide ordenar','Ella quiere que ordeno','Ella pide que ordenes']},
+    {q:'"Je veux que tu fasses tes devoirs" ?', a:'Quiero que hagas los deberes', opts:['Quiero que hagas los deberes','Quiero que haces los deberes','Quiero hacer los deberes','Quiero que haga los deberes']},
+    {q:'"Il me laisse sortir" (dejar) ?', a:'Me deja salir', opts:['Me deja salir','Me deja que salgo','Me deja salido','Deja que salgo']},
+    {q:'Comment dit-on <span class="hl">le lit</span> ?', a:'la cama', opts:['la cama','el sofá','la silla','el sillón']},
+    {q:'Comment dit-on <span class="hl">le canapé</span> ?', a:'el sofá', opts:['el sofá','la cama','la silla','el sillón']},
+    {q:'Comment dit-on <span class="hl">la douche</span> ?', a:'la ducha', opts:['la ducha','el baño','el grifo','la bañera']},
+    {q:'Comment dit-on <span class="hl">les toilettes</span> ?', a:'el váter / los aseos', opts:['el váter / los aseos','el baño','la ducha','el inodoro']},
+    {q:'"Faire ses devoirs" en espagnol ?', a:'hacer los deberes', opts:['hacer los deberes','estudiar los deberes','tener los deberes','poner los deberes']},
+    {q:'"Surveiller" (garder un œil) en espagnol ?', a:'vigilar', opts:['vigilar','mirar','controlar','espiar']},
+    {q:'"Cuisiner" en espagnol ?', a:'cocinar', opts:['cocinar','comer','preparar','hacer']},
+    {q:'Comment dit-on <span class="hl">le bazar / désordre</span> ?', a:'el desorden', opts:['el desorden','el orden','el basurero','el caos']},
+  ],
+};
+
+// ═══════════════════════════════════════════════════════
+//  PASSÉ COMPOSÉ DATA
+// ═══════════════════════════════════════════════════════
+const PC_DATA = {
+  tip: '<strong>Formule :</strong> <strong>haber</strong> (présent) + <strong>participe passé</strong>. Ex : <em>he hablado</em> = "j\'ai parlé". Utilisé pour une action passée liée au présent.',
+  haberRows: [['yo','he'],['tú','has'],['él/ella','ha'],['nosotros','hemos'],['vosotros','habéis'],['ellos','han']],
+  regularPP: [
+    {group:'-AR → -ado', examples:['hablar → hablado','cantar → cantado','trabajar → trabajado','bailar → bailado']},
+    {group:'-ER → -ido', examples:['comer → comido','beber → bebido','vender → vendido','leer → leído']},
+    {group:'-IR → -ido', examples:['vivir → vivido','subir → subido','recibir → recibido','salir → salido']},
+  ],
+  irregularPP: [
+    ['hacer → hecho','decir → dicho','ver → visto','volver → vuelto'],
+    ['poner → puesto','romper → roto','escribir → escrito','abrir → abierto'],
+    ['morir → muerto','cubrir → cubierto','caer → caído','herirse → herido'],
+  ],
+  examples: [
+    'He comido pizza. → J\'ai mangé de la pizza.',
+    'Has hablado mucho. → Tu as beaucoup parlé.',
+    'Ella ha ido al médico. → Elle est allée chez le médecin.',
+    'Hemos estudiado mucho. → Nous avons beaucoup étudié.',
+    'Me he herido en el pie. → Je me suis blessé(e) au pied.',
+    'Han roto el vaso. → Ils ont cassé le verre.',
+    '¿Has hecho los deberes? → Tu as fait tes devoirs ?',
+    'Me he caído. → Je suis tombé(e).',
+  ]
 };
 
 // ═══════════════════════════════════════════════════════
@@ -525,9 +641,11 @@ const CHAPTERS_META = {
   ir:    { title:'🟢 Verbes en -IR', hasMap: true },
   ser:   { title:'⭐ Ser vs Estar',  hasMap: true },
   irr:   { title:'⚡ Verbes irréguliers', hasMap: true },
+  pc:    { title:'🕐 Passé composé', hasMap: true },
   adv:   { title:'💫 Adverbes',      hasMap: true },
   gusta: { title:'❤️ Aimer / Détester', hasMap: true },
   salud: { title:'🏥 La santé',      hasMap: true },
+  casa:  { title:'🏠 La maison',     hasMap: true },
 };
 
 const TENSES = {
@@ -601,9 +719,27 @@ const IRR_VERBS = [
     rows:[['yo','digo'],['tú','dices'],['él/ella','dice'],['nosotros','decimos'],['vosotros','decís'],['ellos','dicen']],
     phrases:['¿Qué dice?','Digo la verdad.','Dice que sí.'] },
   { inf:'venir', tr:'venir', color:'#FF6B9D', badge:'go+e→ie',
-    rows:[['yo','vengo'],['tú','vienes'],['él/ella','viene'],['nosotros','venemos'],['vosotros','venís'],['ellos','vienen']],
+    rows:[['yo','vengo'],['tú','vienes'],['él/ella','viene'],['nosotros','venimos'],['vosotros','venís'],['ellos','vienen']],
     phrases:['¿De dónde vienes?','Vengo de Francia.','¡Ven aquí!'] },
-  { inf:'gustar', tr:'plaire (j\'aime)', color:'#26de81', badge:'spécial',
+  { inf:'caer', tr:'tomber', color:'#26de81', badge:'go',
+    rows:[['yo','caigo'],['tú','caes'],['él/ella','cae'],['nosotros','caemos'],['vosotros','caéis'],['ellos','caen']],
+    phrases:['Me caigo → "Je tombe"','¡Cuidado, no te caigas!','Se cayó por las escaleras.'] },
+  { inf:'andar', tr:'marcher / aller à pied', color:'#FFD32A', badge:'irrég.',
+    rows:[['yo','ando'],['tú','andas'],['él/ella','anda'],['nosotros','andamos'],['vosotros','andáis'],['ellos','andan']],
+    phrases:['Ando al colegio.','¿Cómo andas? (= Comment ça va?)','Anda rápido.'] },
+  { inf:'coger', tr:'prendre / attraper', color:'#FF6B35', badge:'go',
+    rows:[['yo','cojo'],['tú','coges'],['él/ella','coge'],['nosotros','cogemos'],['vosotros','cogéis'],['ellos','cogen']],
+    phrases:['Coge el autobús.','¡Cógelo!','Cojo un resfriado = Je prends froid.'] },
+  { inf:'dar', tr:'donner', color:'#1E90FF', badge:'irrég.',
+    rows:[['yo','doy'],['tú','das'],['él/ella','da'],['nosotros','damos'],['vosotros','dais'],['ellos','dan']],
+    phrases:['Dame + nom → "Donne-moi..."','Me da igual.','Da una vuelta.'] },
+  { inf:'romper', tr:'casser / rompre', color:'#FF4757', badge:'régul.*',
+    rows:[['yo','rompo'],['tú','rompes'],['él/ella','rompe'],['nosotros','rompemos'],['vosotros','rompéis'],['ellos','rompen']],
+    phrases:['Rompí el vaso. (prét.)','Me he roto el brazo. (p.composé)','No rompas nada.'] },
+  { inf:'herirse', tr:'se blesser (réfl.)', color:'#FF6B9D', badge:'e→ie réfl.',
+    rows:[['yo','me hiero'],['tú','te hieres'],['él/ella','se hiere'],['nosotros','nos herimos'],['vosotros','os herís'],['ellos','se hieren']],
+    phrases:['Me he herido → "Je me suis blessé"','¿Te has herido?','Se hirió en el pie.'] },
+  { inf:'gustar', tr:'plaire (j\'aime)', color:'#A55EEA', badge:'spécial',
     rows:[['(a mí)','me gusta/gustan'],['(a ti)','te gusta/gustan'],['(a él)','le gusta/gustan'],['(a nos.)','nos gusta/gustan'],['(a vos.)','os gusta/gustan'],['(a ellos)','les gusta/gustan']],
     phrases:['Me gusta + sing → "J\'aime..."','Me gustan + pl → "J\'aime les..."','¿Te gusta el fútbol?'] },
 ];
@@ -686,9 +822,11 @@ function renderTab(tab) {
     if (['ar','er','ir'].includes(currentChapter)) renderTenses(content);
     else if (currentChapter === 'ser') renderSerEstar(content);
     else if (currentChapter === 'irr') renderIrregular(content);
+    else if (currentChapter === 'pc')  renderPC(content);
     else if (currentChapter === 'adv') renderAdverbes(content);
     else if (currentChapter === 'gusta') renderGusta(content);
     else if (currentChapter === 'salud') renderSalud(content);
+    else if (currentChapter === 'casa')  renderCasa(content);
   } else {
     renderQuiz(content);
   }
@@ -899,10 +1037,15 @@ function renderSalud(container) {
     {esp:'Estoy enfermo/a', fr:'Je suis malade', hl:true},
     {esp:'Estoy bien / mal', fr:'Je vais bien / mal', hl:false},
     {esp:'Me encuentro mal', fr:'Je me sens mal', hl:false},
+    {esp:'Estoy cansado/a', fr:'Je suis fatigué(e)', hl:true},
     {esp:'Tengo fiebre', fr:'J\'ai de la fièvre', hl:true},
+    {esp:'Tengo ojeras', fr:'J\'ai des cernes', hl:false},
     {esp:'Tengo tos', fr:'J\'ai la toux', hl:false},
-    {esp:'Tengo un resfriado', fr:'J\'ai un rhume', hl:false},
-    {esp:'Tengo gripe', fr:'J\'ai la grippe', hl:true},
+    {esp:'Tengo un resfriado', fr:'J\'ai un rhume', hl:true},
+    {esp:'Tengo gripe', fr:'J\'ai la grippe', hl:false},
+    {esp:'Me pica la nariz', fr:'Mon nez me démange', hl:true},
+    {esp:'Sangro / Me sangra', fr:'Je saigne', hl:true},
+    {esp:'Tirito de frío', fr:'Je tremble de froid', hl:false},
     {esp:'Me duele + singulier', fr:'J\'ai mal à...', hl:true},
     {esp:'Me duelen + pluriel', fr:'J\'ai mal aux...', hl:true},
     {esp:'Hay que ir al médico', fr:'Il faut aller au médecin', hl:false},
@@ -959,6 +1102,201 @@ function renderSalud(container) {
   bw.innerHTML='<div class="body-title">🫀 El cuerpo humano</div>';
   bw.appendChild(bg);
   container.appendChild(bw);
+
+  // Extra vocab: symptoms, objects
+  const extraVocab = [
+    {esp:'los síntomas', fr:'les symptômes', hl:true},
+    {esp:'sangrar', fr:'saigner', hl:true},
+    {esp:'temblar / tiritar', fr:'trembler (de froid)', hl:false},
+    {esp:'coger un resfriado', fr:'prendre froid', hl:true},
+    {esp:'un gorro', fr:'un bonnet (de malade)', hl:false},
+    {esp:'un pañuelo', fr:'un mouchoir', hl:false},
+    {esp:'las ojeras', fr:'les cernes', hl:false},
+    {esp:'el termómetro', fr:'le thermomètre', hl:false},
+    {esp:'la pastilla / el comprimido', fr:'le cachet / comprimé', hl:false},
+    {esp:'el jarabe', fr:'le sirop', hl:false},
+  ];
+  const lbl4 = document.createElement('div');
+  lbl4.className='section-label'; lbl4.style.padding='0.8rem 0 0.5rem'; lbl4.textContent='🤧 Vocab supplémentaire';
+  container.appendChild(lbl4);
+  const evg = document.createElement('div'); evg.className='vocab-grid';
+  extraVocab.forEach(e => {
+    const c = document.createElement('div');
+    c.className='vocab-card'+(e.hl?' highlight':'');
+    c.innerHTML=`<div class="vocab-esp">${e.esp}</div><div class="vocab-fr">${e.fr}</div>`;
+    evg.appendChild(c);
+  });
+  container.appendChild(evg);
+}
+
+// ═══════════════════════════════════════════════════════
+//  PASSÉ COMPOSÉ RENDERER
+// ═══════════════════════════════════════════════════════
+function renderPC(container) {
+  const d = PC_DATA;
+  const tip = document.createElement('div');
+  tip.className='tip-box'; tip.innerHTML=d.tip;
+  container.appendChild(tip);
+
+  // Haber conjugation
+  const haberBlock = document.createElement('div');
+  haberBlock.className='tense-block';
+  haberBlock.innerHTML=`<div class="tense-header"><div class="tense-dot" style="background:#FF6B35"></div><div><div class="tense-name" style="color:#FF6B35">Auxiliaire : HABER</div><div class="tense-usage">à conjuguer au présent</div></div></div>`;
+  const haberTable = document.createElement('table');
+  haberTable.className='conjugation-table';
+  d.haberRows.forEach(([p,f]) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML=`<td class="td-pronoun">${p}</td><td class="td-full" style="color:#FF6B35;font-weight:900">${f}</td>`;
+    haberTable.appendChild(tr);
+  });
+  haberBlock.appendChild(haberTable);
+  container.appendChild(haberBlock);
+
+  // Regular participes
+  const lbl1 = document.createElement('div');
+  lbl1.className='section-label'; lbl1.style.padding='0.5rem 0 0.5rem'; lbl1.textContent='📝 Participes réguliers';
+  container.appendChild(lbl1);
+  d.regularPP.forEach(g => {
+    const block = document.createElement('div');
+    block.className='tense-block';
+    block.innerHTML=`<div class="tense-header"><div class="tense-dot" style="background:#2ED573"></div><div><div class="tense-name" style="color:#2ED573">${g.group}</div></div></div>`;
+    const table = document.createElement('table');
+    table.className='conjugation-table';
+    g.examples.forEach(ex => {
+      const [inf,pp] = ex.split(' → ');
+      const tr = document.createElement('tr');
+      tr.innerHTML=`<td class="td-pronoun" style="color:var(--muted)">${inf}</td><td class="td-full" style="color:#2ED573;font-weight:900">${pp}</td>`;
+      table.appendChild(tr);
+    });
+    block.appendChild(table);
+    container.appendChild(block);
+  });
+
+  // Irregular participes
+  const lbl2 = document.createElement('div');
+  lbl2.className='section-label'; lbl2.style.padding='0.5rem 0 0.5rem'; lbl2.textContent='⚠️ Participes irréguliers — à apprendre !';
+  container.appendChild(lbl2);
+  const irrGrid = document.createElement('div');
+  irrGrid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.9rem';
+  d.irregularPP.flat().forEach(item => {
+    const [inf,pp] = item.split(' → ');
+    const c = document.createElement('div');
+    c.style.cssText='background:rgba(255,71,87,0.1);border-left:3px solid #FF4757;border-radius:10px;padding:0.5rem 0.7rem';
+    c.innerHTML=`<div style="font-size:0.75rem;color:var(--muted)">${inf} →</div><div style="font-family:Baloo 2,cursive;font-size:0.95rem;font-weight:800;color:#FF4757">${pp}</div>`;
+    irrGrid.appendChild(c);
+  });
+  container.appendChild(irrGrid);
+
+  // Example sentences
+  const lbl3 = document.createElement('div');
+  lbl3.className='section-label'; lbl3.style.padding='0.3rem 0 0.5rem'; lbl3.textContent='✏️ Exemples de phrases';
+  container.appendChild(lbl3);
+  const exDiv = document.createElement('div');
+  exDiv.style.cssText='display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem';
+  d.examples.forEach(ex => {
+    const [esp,fr] = ex.split(' → ');
+    const c = document.createElement('div');
+    c.style.cssText='background:rgba(255,107,53,0.1);border-left:3px solid #FF6B35;border-radius:8px;padding:0.5rem 0.8rem;font-size:0.83rem';
+    c.innerHTML=`<strong>${esp}</strong><div style="color:var(--muted);margin-top:0.1rem">${fr||''}</div>`;
+    exDiv.appendChild(c);
+  });
+  container.appendChild(exDiv);
+}
+
+// ═══════════════════════════════════════════════════════
+//  CASA RENDERER
+// ═══════════════════════════════════════════════════════
+function renderCasa(container) {
+  const tip = document.createElement('div');
+  tip.className='tip-box';
+  tip.innerHTML='<strong>Structures clés :</strong> <em>Ella me pide que + subjonctif</em> · <em>Quiero que + subjonctif</em> · <em>dejar + infinitif</em>';
+  container.appendChild(tip);
+
+  // Pièces
+  const pieces = [
+    ['🛏️','la habitación','la chambre'],['🛋️','el salón','le salon'],
+    ['🍳','la cocina','la cuisine'],['🚿','el baño','la salle de bain'],
+    ['🚽','el aseo / váter','les toilettes'],['🍽️','el comedor','la salle à manger'],
+    ['🚪','el pasillo','le couloir'],['🏡','el jardín','le jardin'],
+  ];
+  const lbl1=document.createElement('div'); lbl1.className='section-label'; lbl1.style.padding='0 0 0.5rem'; lbl1.textContent='🏠 Les pièces — Las habitaciones';
+  container.appendChild(lbl1);
+  const pg=document.createElement('div'); pg.className='vocab-grid';
+  pieces.forEach(([em,esp,fr])=>{
+    const c=document.createElement('div'); c.className='vocab-card';
+    c.innerHTML=`<div class="vocab-esp">${em} ${esp}</div><div class="vocab-fr">${fr}</div>`;
+    pg.appendChild(c);
+  });
+  container.appendChild(pg);
+
+  // Objets
+  const objets = [
+    ['🛏️','la cama','le lit'],['🛋️','el sofá','le canapé'],
+    ['🚿','la ducha','la douche'],['🪥','los aseos','les toilettes'],
+    ['🧺','la lavadora','le lave-linge'],['👕','el armario','l\'armoire'],
+    ['🍴','la mesa','la table'],['💡','la lámpara','la lampe'],
+    ['📺','la tele','la télé'],['🧹','la escoba','le balai'],
+    ['🪣','el cubo','le seau'],['🧴','el detergente','la lessive (produit)'],
+  ];
+  const lbl2=document.createElement('div'); lbl2.className='section-label'; lbl2.style.padding='0.8rem 0 0.5rem'; lbl2.textContent='🪑 Objets — Los muebles y objetos';
+  container.appendChild(lbl2);
+  const og=document.createElement('div'); og.className='vocab-grid';
+  objets.forEach(([em,esp,fr])=>{
+    const c=document.createElement('div'); c.className='vocab-card';
+    c.innerHTML=`<div class="vocab-esp">${em} ${esp}</div><div class="vocab-fr">${fr}</div>`;
+    og.appendChild(c);
+  });
+  container.appendChild(og);
+
+  // Tâches ménagères
+  const taches = [
+    {esp:'ordenar la habitación', fr:'ranger la chambre', hl:true},
+    {esp:'hacer la cama', fr:'faire le lit', hl:false},
+    {esp:'fregar / lavar los platos', fr:'faire la vaisselle', hl:false},
+    {esp:'hacer la colada', fr:'faire la lessive', hl:true},
+    {esp:'tender la ropa', fr:'étendre le linge', hl:false},
+    {esp:'doblar / plegar la ropa', fr:'plier / ranger le linge', hl:false},
+    {esp:'poner la mesa', fr:'mettre la table', hl:true},
+    {esp:'quitar la mesa', fr:'débarrasser la table', hl:false},
+    {esp:'barrer el suelo', fr:'balayer le sol', hl:false},
+    {esp:'pasar el aspirador', fr:'passer l\'aspirateur', hl:false},
+    {esp:'cocinar', fr:'cuisiner', hl:false},
+    {esp:'hacer los deberes', fr:'faire ses devoirs', hl:true},
+    {esp:'vigilar / supervisar', fr:'surveiller', hl:false},
+    {esp:'el desorden', fr:'le bazar / désordre', hl:false},
+    {esp:'el orden', fr:'l\'ordre / rangement', hl:false},
+  ];
+  const lbl3=document.createElement('div'); lbl3.className='section-label'; lbl3.style.padding='0.8rem 0 0.5rem'; lbl3.textContent='🧹 Tâches — Las tareas del hogar';
+  container.appendChild(lbl3);
+  const tg=document.createElement('div'); tg.className='vocab-grid';
+  taches.forEach(t=>{
+    const c=document.createElement('div'); c.className='vocab-card'+(t.hl?' highlight':'');
+    c.innerHTML=`<div class="vocab-esp">${t.esp}</div><div class="vocab-fr">${t.fr}</div>`;
+    tg.appendChild(c);
+  });
+  container.appendChild(tg);
+
+  // Structures grammaticales
+  const structs = [
+    {titre:'Ella me pide que…', color:'#A55EEA', usage:'Elle me demande de... (+ subjonctif)',
+     phrases:['Ella me pide que ordene mi habitación.','Me pide que haga la cama.','Me pide que estudie.']},
+    {titre:'Quiero que…', color:'#FF4757', usage:'Je veux que... (+ subjonctif)',
+     phrases:['Quiero que limpies tu cuarto.','Quiero que pongas la mesa.','No quiero que hagas ruido.']},
+    {titre:'dejar + infinitif', color:'#2ED573', usage:'Laisser faire / permettre',
+     phrases:['Me deja salir con mis amigos.','No me deja ver la tele.','¿Me dejas usar el móvil?']},
+    {titre:'tener que + infinitif', color:'#FFD32A', usage:'Devoir / être obligé de',
+     phrases:['Tengo que ordenar mi habitación.','Tienes que hacer los deberes.','Hay que fregar los platos.']},
+  ];
+  const lbl4=document.createElement('div'); lbl4.className='section-label'; lbl4.style.padding='0.8rem 0 0.5rem'; lbl4.textContent='📐 Structures grammaticales';
+  container.appendChild(lbl4);
+  structs.forEach(s=>{
+    const block=document.createElement('div'); block.className='irr-verb-block';
+    block.innerHTML=`<div class="irr-verb-header" style="background:linear-gradient(135deg,${s.color}22,${s.color}11);border-left:4px solid ${s.color}"><div><div class="irr-verb-inf" style="color:${s.color}">${s.titre}</div><div class="irr-verb-tr">${s.usage}</div></div></div>`;
+    const pd=document.createElement('div'); pd.style.cssText='padding:0.7rem 1.1rem;border-top:1px solid rgba(255,255,255,0.06)';
+    s.phrases.forEach(p=>{ pd.innerHTML+=`<div style="font-size:0.82rem;color:var(--muted);margin-bottom:0.35rem">💬 ${p}</div>`; });
+    block.appendChild(pd);
+    container.appendChild(block);
+  });
 }
 
 // ═══════════════════════════════════════════════════════
